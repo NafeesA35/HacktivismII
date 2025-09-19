@@ -1,9 +1,6 @@
 const center = [51.536119, 0.111456];
-const map =L.map("map", {minZoom: 12}).setView([center], 12);
-const bounds = L.latLngBounds(
-    [center[0] - 0.005, center[1] - 0.005],
-    [center[0] + 0.005, center[1] + 0.005]
-);
+const map =L.map("map", {minZoom: 13}).setView(center, 13);
+const bounds = map.getBounds();
 map.setMaxBounds(bounds);
 
 // creating the map
