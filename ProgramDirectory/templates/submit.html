@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit a Story - B&D StoryBank</title>
+    <script defer src="{{ url_for('static', filename='main.js') }}"></script>
 </head>
 <body>
     <header>
         <h1>Share Your Story!</h1>
         <nav>
-            <a href="/index">Story Wall</a>
+            <a href="/">Story Wall</a>
         </nav>
     </header>
 
@@ -24,14 +25,8 @@
             <label for="storyContent">Story Text: </label>
             <textarea id="storyContent" name="storyContent" required></textarea>
 
-            <label for="locationTag">Location Tag: </label>
-            <input type="text" id="locationTag" name="locationTag" required>
-
-            <label for="latitudeNum">Latitude: </label>
-            <input type="number" id="latitudeNum" name="latitudeNum" min="-90" max="90" step="0.0001">
-
-            <label for="longitudeNum">Longitude: </label>
-            <input type="number" id="longitudeNum" name="longitudeNum" min="-180" max="180" step="0.0001">
+            <label for="locationTag">Location Name : </label>
+            <input type="text" id="locationTag" name="locationTag" required placeholder="Enter the name of the place">
             
             <label for="decadeNum">Story Decade: </label>
             <select id="decadeNum" name="decadeNum">
@@ -49,9 +44,7 @@
             </select>
 
             <button type="submit" id="submitButton" name="submitButton">Submit Story</button>
-
         </form>
     </main>
-    
 </body>
 </html>
