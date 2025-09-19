@@ -3,7 +3,7 @@
 # Flask: The main class used to create our web application instance.
 # request: An object that holds all the incoming data from a client request (like JSON data).
 # jsonify: A function that converts Python dictionaries into a JSON format for API responses.
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 # Import the built-in Python library for interacting with SQLite databases.
 import sqlite3
@@ -23,7 +23,12 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     # This function simply returns a string to let us know the API is running.
-    return "B&D StoryBank API is running!"
+    return render_template('index.html')
+
+# Access to the submit page 
+@app.route('/submit')
+def submit_page():
+    return render_template('submit.html')
 
 
 # This route handles creating a new story.
