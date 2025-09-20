@@ -4,6 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B&D StoryBank</title>
+
+    <!-- Leaflet CSS (map styles) -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""
+    />
+
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Leaflet JS (map engine) -->
+    <script
+        defer
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""
+    ></script>
+
+    <!-- Page-specific Leaflet code (kept separate from your main.js) -->
+    <script defer src="{{ url_for('static', filename='lft.js') }}"></script>
 </head>
 <body>
     <header>
@@ -40,9 +62,7 @@
                 <h3>Placeholder Code - Where Story will go</h3>
             </div>
         </div>
-        <div id="map">
-            
-        </div>
+        <div id="map"></div>
     </main>
 </body>
 </html>

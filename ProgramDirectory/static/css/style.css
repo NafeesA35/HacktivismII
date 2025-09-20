@@ -1,0 +1,17 @@
+/* Mini map container (main map on page) */
+#map {
+  height: 40rem; /* mini-map sized */
+  width: 32rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+  margin-top: 12px;
+  margin: 12px auto 0;
+}
+
+@media (min-width: 900px) {
+  main {
+    grid-template-columns: 2fr 1fr; /* story wall | map */
+    align-items: start;
+  }
+}
