@@ -5,46 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit a Story - B&D StoryBank</title>
     <script defer src="{{ url_for('static', filename='main.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/index_submit.css">
 </head>
 <body>
-    <header>
-        <h1>Share Your Story!</h1>
-        <nav>
-            <a href="/">Story Wall</a>
-        </nav>
-    </header>
+    <div class="container-sm"></div>
+        <header class="row text-center">
+            <h1>Share Your Story!</h1>
+            <nav>
+                <a href="/">Story Wall</a>
+            </nav>
+        </header>
 
-    <main>
-        <form id="storyForm">
-            <label for="authorName">Author Name: </label>
-            <input type="text" id="authorName" name="authorName" >
+        <main>
+            <form id="storyForm" class="container-sm py-4">
+                <div class="row py-1">
+                    <div class="col">
+                        <label for="authorName" class="form-label" >Author Name: </label>
+                        <input type="text" id="authorName" name="authorName" class="form-control custom-label" >
+                    </div>
+                    <div class="col">
+                        <label for="storyTitle" class="form-label" >Story Title: </label>
+                        <input type="text" id="storyTitle" name="storyTitle" class="form-control custom-label" >
+                    </div>
+                </div>
 
-            <label for="storyTitle">Story Title: </label>
-            <input type="text" id="storyTitle" name="storyTitle" >
+                <div class="row py-1">
+                    <label for="storyContent" class="form-label" >Story Text: </label>
+                    <textarea id="storyContent" name="storyContent" class="form-control" ></textarea>
+                </div>
 
-            <label for="storyContent">Story Text: </label>
-            <textarea id="storyContent" name="storyContent" ></textarea>
+                <div class="row py-1">
+                    <label for="locationTag" class="form-label" >Location Name : </label>
+                    <input type="text" id="locationTag" name="locationTag"  placeholder="Enter the name of the place" class="form-control" >
+                </div>
+                
+                <div class="row py-1">
+                    <label for="decadeNum">Story Decade: </label>
+                    <select id="decadeNum" name="decadeNum" class=" dropdown">
+                        <option value="1920s">1920s</option>
+                        <option value="1930s">1930s</option>
+                        <option value="1940s">1940s</option>
+                        <option value="1950s">1950s</option>
+                        <option value="1960s">1960s</option>
+                        <option value="1970s">1970s</option>
+                        <option value="1980s">1980s</option>
+                        <option value="1990s">1990s</option>
+                        <option value="2000s">2000s</option>
+                        <option value="2010s">2010s</option>
+                        <option value="2020s">2020s</option>
+                    </select>
+                </div>
 
-            <label for="locationTag">Location Name : </label>
-            <input type="text" id="locationTag" name="locationTag"  placeholder="Enter the name of the place">
-            
-            <label for="decadeNum">Story Decade: </label>
-            <select id="decadeNum" name="decadeNum">
-                <option value="1920s">1920s</option>
-                <option value="1930s">1930s</option>
-                <option value="1940s">1940s</option>
-                <option value="1950s">1950s</option>
-                <option value="1960s">1960s</option>
-                <option value="1970s">1970s</option>
-                <option value="1980s">1980s</option>
-                <option value="1990s">1990s</option>
-                <option value="2000s">2000s</option>
-                <option value="2010s">2010s</option>
-                <option value="2020s">2020s</option>
-            </select>
-
-            <button type="submit" id="submitButton" name="submitButton">Submit Story</button>
-        </form>
-    </main>
+                <div class="row py-1">
+                    <button class="btn btn-outline-dark sub_button" type="submit" id="submitButton" name="submitButton">Submit Story</button>
+                </div>
+            </form>
+        </main>
+    </div>
 </body>
 </html>
