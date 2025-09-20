@@ -8,11 +8,50 @@ document.addEventListener('DOMContentLoaded', function() {
         S_FORM.addEventListener('submit', async function(e){
             e.preventDefault(); // Prevent default submission
 
-            const locationTag = document.getElementById('locationTag').value;
+            // Get form fields
+            let authorName = document.getElementById('authorName');
+            let storyTitle = document.getElementById('storyTitle');
+            let storyContent = document.getElementById('storyContent');
+            let locationTag = document.getElementById('locationTag');
+
+            // Add input event listeners to clear red background when user starts typing
+            [authorName, storyTitle, storyContent, locationTag].forEach(field => {
+                field.addEventListener('input', function() {
+                    this.style.backgroundColor = "white";
+                });
+            });
+
+            // Validation check
+            if(authorName.value.trim() == "" || storyTitle.value.trim() == "" || storyContent.value.trim() == "" || locationTag.value.trim() == "") {
+
+                if(authorName.value.trim() == "" && storyTitle.value.trim() == "" && storyContent.value.trim() == "" && locationTag.value.trim() == "") {
+                    authorName.style.backgroundColor = "#9200002d";
+                    storyTitle.style.backgroundColor = "#9200002d";
+                    storyContent.style.backgroundColor = "#9200002d";
+                    locationTag.style.backgroundColor = "#9200002d";
+                }else if(authorName.value.trim() == "") {
+                    authorName.style.backgroundColor = "#9200002d";
+                }else if(storyTitle.value.trim() == "") {
+                    storyTitle.style.backgroundColor = "#9200002d";
+                }else if(storyContent.value.trim() == "") {
+                    storyContent.style.backgroundColor = "#9200002d";
+                }else{
+                    locationTag.style.backgroundColor = "#9200002d";
+                }
+
+                alert("Fill the form out");
+                return;
+            }
+
+            // Reset backgrounds to white
+            authorName.style.backgroundColor = "white";
+            storyTitle.style.backgroundColor = "white";
+            storyContent.style.backgroundColor = "white";
+            locationTag.style.backgroundColor = "white";
             
             try {
                 // Get coordinates from the location
-                const COORDINATES = await getCoordinates(locationTag);
+                const COORDINATES = await getCoordinates(locationTag.value);
                 
                 if (!COORDINATES) {
                     alert("Could not find coordinates for the location. Please check the location name.");
@@ -20,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 const FORM_CONTENT = {
-                    author_name: document.getElementById('authorName').value,
-                    story_title: document.getElementById('storyTitle').value,
-                    story_text: document.getElementById('storyContent').value,
-                    location_tag: locationTag,
+                    author_name: authorName.value,
+                    story_title: storyTitle.value,
+                    story_text: storyContent.value,
+                    location_tag: locationTag.value,
                     latitude: parseFloat(COORDINATES.latitude),
                     longitude: parseFloat(COORDINATES.longitude),
                     decade_tag: document.getElementById('decadeNum').value
