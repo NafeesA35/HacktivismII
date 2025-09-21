@@ -123,5 +123,63 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Geocoding error:', err);
             throw err;
         }
+
     }
+
+    //Create A Card For The Story
+    function createCard(story){
+        let card = document.createElement('div');
+        card.className = 'storyCard';
+
+        let title = document.createElement('h3');
+        title.textContent = story.story_title;
+
+        let authorName = document.createElement('p');
+        authorName.textContent = story.author_name;
+
+        let storyContent = document.createElement('p')
+        storyContent.textContent = story.story_text;
+
+        let locationTag = document.createElement('p')
+        locationTag.textContent = story.location_tag;
+
+        card.append(title);
+        card.append(authorName);
+        card.append(storyContent);
+        card.append(locationTag);
+
+        return card;
+       
+    }
+
+    //Render All Stories Onto The Page
+    function renderStories(stories){
+        let storyWall = document.getElementById('storyWall');
+
+
+        stories.forEach((story) => {
+            let card = createCard(story);
+            card.id = `story-${story.id}`;
+            storyWall.appendChild(card);
+        })
+    }
+
+
+    //Load Stories From API
+    async function loadStories(){
+        try{
+            let res = await fetch('/api/stories');
+            if(!res.ok){
+                throw new Error('Network Error!');
+            }
+            let stories = await res.json();
+            renderStories(stories);
+
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
+    loadStories();
 });
