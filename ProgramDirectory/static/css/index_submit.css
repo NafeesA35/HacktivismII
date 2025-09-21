@@ -2,16 +2,6 @@ body {
     background-color: #a3edb6;
 }
 
-.custom-label{
-    min-width: 13rem;
-    max-width: 20rem;
-}
-
-.dropdown{
-    min-width: 10rem;
-    max-width: 13rem;
-}
-
 .sub_button{
     min-width: 10rem;
     max-width: 13rem;
@@ -20,3 +10,8 @@ body {
 textarea.form-control {
     min-height: 5rem; /* adjust as needed */
 }
+
+.form-select{
+    min-width: 10rem;
+    max-width: 13rem;
+}   

@@ -21,29 +21,34 @@
         <main>
             <form id="storyForm" class="container-sm py-4">
                 <div class="row py-1">
-                    <div class="col">
-                        <label for="authorName" class="form-label" >Author Name: </label>
-                        <input type="text" id="authorName" name="authorName" class="form-control custom-label" >
+                    <div class="col-md-6 col-12">
+                        <label for="authorName" class="form-label">Author Name:</label>
+                        <input type="text" id="authorName" name="authorName" class="form-control">
                     </div>
-                    <div class="col">
-                        <label for="storyTitle" class="form-label" >Story Title: </label>
-                        <input type="text" id="storyTitle" name="storyTitle" class="form-control custom-label" >
+                    <div class="col-md-6 col-12">
+                        <label for="storyTitle" class="form-label">Story Title:</label>
+                        <input type="text" id="storyTitle" name="storyTitle" class="form-control">
                     </div>
                 </div>
 
                 <div class="row py-1">
-                    <label for="storyContent" class="form-label" >Story Text: </label>
-                    <textarea id="storyContent" name="storyContent" class="form-control" ></textarea>
+                    <div class="col-12">
+                        <label for="storyContent" class="form-label">Story Text:</label>
+                        <textarea id="storyContent" name="storyContent" class="form-control"></textarea>
+                    </div>
                 </div>
 
                 <div class="row py-1">
-                    <label for="locationTag" class="form-label" >Location Name : </label>
-                    <input type="text" id="locationTag" name="locationTag"  placeholder="Enter the name of the place" class="form-control" >
+                    <div class="col-12">
+                        <label for="locationTag" class="form-label">Location Name:</label>
+                        <input type="text" id="locationTag" name="locationTag" placeholder="Enter the name of the place" class="form-control">
+                    </div>
                 </div>
-                
+
                 <div class="row py-1">
-                    <label for="decadeNum">Story Decade: </label>
-                    <select id="decadeNum" name="decadeNum" class=" dropdown">
+                    <div class="col-12">
+                        <label for="decadeNum" class="form-label">Story Decade:</label>
+                        <select id="decadeNum" name="decadeNum" class="form-select">
                         <option value="1920s">1920s</option>
                         <option value="1930s">1930s</option>
                         <option value="1940s">1940s</option>
@@ -55,11 +60,16 @@
                         <option value="2000s">2000s</option>
                         <option value="2010s">2010s</option>
                         <option value="2020s">2020s</option>
-                    </select>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="row py-1">
-                    <button class="btn btn-outline-dark sub_button" type="submit" id="submitButton" name="submitButton">Submit Story</button>
+                    <div class="col-12">
+                        <button class="btn btn-outline-dark sub_button" type="submit" id="submitButton" name="submitButton">
+                        Submit Story
+                        </button>
+                    </div>
                 </div>
             </form>
         </main>
