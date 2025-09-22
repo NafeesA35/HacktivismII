@@ -135,18 +135,22 @@ document.addEventListener('DOMContentLoaded', function() {
         title.textContent = story.story_title;
 
         let authorName = document.createElement('p');
-        authorName.textContent = story.author_name;
+        authorName.innerHTML = `<strong>By: </strong> ${story.author_name}`;
 
-        let storyContent = document.createElement('p')
+        let locationTag = document.createElement('p');
+        locationTag.innerHTML = `<strong>Location: </strong> ${story.location_tag}`;
+        
+        let decadeTag = document.createElement('p');
+        decadeTag.innerHTML = `<strong>Decade: </strong> ${story.decade_tag}`;
+ 
+        let storyContent = document.createElement('p');
         storyContent.textContent = story.story_text;
-
-        let locationTag = document.createElement('p')
-        locationTag.textContent = story.location_tag;
 
         card.append(title);
         card.append(authorName);
-        card.append(storyContent);
         card.append(locationTag);
+        card.append(decadeTag)
+        card.append(storyContent);
 
         return card;
        
