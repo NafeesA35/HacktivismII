@@ -123,5 +123,93 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Geocoding error:', err);
             throw err;
         }
+
     }
+
+    //Create A Card For The Story
+    function createCard(story){
+        let card = document.createElement('div');
+        card.className = 'storyCard';
+
+        let title = document.createElement('h3');
+        title.textContent = story.story_title;
+
+        let authorName = document.createElement('p');
+        authorName.innerHTML = `<strong>By: </strong> ${story.author_name}`;
+
+        let locationTag = document.createElement('p');
+        locationTag.innerHTML = `<strong>Location: </strong> ${story.location_tag}`;
+        
+        let decadeTag = document.createElement('p');
+        decadeTag.innerHTML = `<strong>Decade: </strong> ${story.decade_tag}`;
+ 
+        let storyContent = document.createElement('p');
+        storyContent.textContent = story.story_text;
+
+        card.append(title);
+        card.append(authorName);
+        card.append(locationTag);
+        card.append(decadeTag)
+        card.append(storyContent);
+
+        return card;
+       
+    }
+
+    //Render All Stories Onto The Page
+    function renderStories(stories){
+        let storyWall = document.getElementById('storyWall');
+        storyWall.innerHTML = ''; // clear old stories
+
+        //Check if there is any stories
+        if(stories.length === 0){
+            let checkMessage = document.createElement('p');
+            checkMessage.textContent = "No Stories Available For This Selection!";
+            storyWall.appendChild(checkMessage);
+            return;
+        }
+
+        stories.forEach((story) => {
+            let card = createCard(story);
+            card.id = `story-${story.id}`;
+            storyWall.appendChild(card);
+        })
+    }
+
+    //Apply Filter For The Stories
+    function applyStoryFilter(stories){
+        let decadeFilter = document.getElementById('decadeFilter').value;
+        let filtered = stories;
+
+        if(decadeFilter!= "all"){
+            filtered = stories.filter(st => st.decade_tag === decadeFilter);
+        }
+      
+
+        renderStories(filtered);
+    }
+
+
+    //Load Stories From API
+    async function loadStories(){
+        try{
+            let res = await fetch('/api/stories');
+            if(!res.ok){
+                throw new Error('Network Error!');
+            }
+            let stories = await res.json();
+            renderStories(stories);
+
+            let filterSelect = document.getElementById('decadeFilter');
+            if(filterSelect){
+                filterSelect.addEventListener('change', ()=> applyStoryFilter(stories));
+            }
+
+        }
+        catch(err){
+            console.error(err);
+        }
+    }
+
+    loadStories();
 });
