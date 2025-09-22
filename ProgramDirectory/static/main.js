@@ -159,13 +159,34 @@ document.addEventListener('DOMContentLoaded', function() {
     //Render All Stories Onto The Page
     function renderStories(stories){
         let storyWall = document.getElementById('storyWall');
+        storyWall.innerHTML = ''; // clear old stories
 
+        //Check if there is any stories
+        if(stories.length === 0){
+            let checkMessage = document.createElement('p');
+            checkMessage.textContent = "No Stories Available For This Selection!";
+            storyWall.appendChild(checkMessage);
+            return;
+        }
 
         stories.forEach((story) => {
             let card = createCard(story);
             card.id = `story-${story.id}`;
             storyWall.appendChild(card);
         })
+    }
+
+    //Apply Filter For The Stories
+    function applyStoryFilter(stories){
+        let decadeFilter = document.getElementById('decadeFilter').value;
+        let filtered = stories;
+
+        if(decadeFilter!= "all"){
+            filtered = stories.filter(st => st.decade_tag === decadeFilter);
+        }
+      
+
+        renderStories(filtered);
     }
 
 
@@ -178,6 +199,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             let stories = await res.json();
             renderStories(stories);
+
+            let filterSelect = document.getElementById('decadeFilter');
+            if(filterSelect){
+                filterSelect.addEventListener('change', ()=> applyStoryFilter(stories));
+            }
 
         }
         catch(err){
