@@ -7,7 +7,6 @@ html{
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(to top right,skyblue, rgb(114, 212, 114));
     background-attachment: fixed;
     font-family: 'Alan Sans', sans-serif;
@@ -24,11 +23,11 @@ header {
 
 header h1 {
     font-size: 24px;
-    color: #210aeb;
+    color: #2b425c;
 }
 
 nav a {
-    color: #0066cc;
+    color: #2b425c;
     text-decoration: none;
     font-weight: bold;
 }
@@ -100,6 +99,8 @@ form textarea {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-family: 'Alan Sans', sans-serif;
+    font-weight: 500;
 
 }
 
