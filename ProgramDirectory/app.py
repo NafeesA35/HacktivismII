@@ -4,6 +4,7 @@ import sqlite3
 
 
 app = Flask(__name__)
+DB_PATH = 'storybank.db'
 
 
 @app.route('/')
@@ -47,7 +48,7 @@ def create_story():
     if not (-90 <= lat <= 90) or not (-180 <= lng <= 180):
         return jsonify({'error': 'Coordinates out of range: latitude [-90,90], longitude [-180,180].'}), 400
 
-    # normalize numbers
+    # normalise numbers
     data['latitude'] = lat
     data['longitude'] = lng
 
@@ -59,8 +60,8 @@ def create_story():
             data[key] = data[key].strip() or None
 
     try:
-    # insert
-        conn = sqlite3.connect('storybank.db')
+        # insert
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
 
         # parameterized insert
@@ -85,7 +86,7 @@ def create_story():
         return jsonify({'message': 'Story created successfully'}), 201
 
     except Exception as e:
-    # error
+        # error
         return jsonify({'error': str(e)}), 500
 
 
@@ -96,7 +97,7 @@ def create_story():
 @app.route('/api/stories', methods=['GET'])
 def get_stories():
     try:
-        conn = sqlite3.connect('storybank.db')
+        conn = sqlite3.connect(DB_PATH)
         conn.row_factory = sqlite3.Row 
         
         cursor = conn.cursor()
@@ -124,7 +125,7 @@ def get_stories():
         rows = cursor.fetchall()
         
         conn.close()
-    # serialize
+        # serialize
         stories = [dict(row) for row in rows]
         
         return jsonify(stories), 200

@@ -3,6 +3,11 @@
 (function(){
   document.addEventListener('DOMContentLoaded', init);
 
+  // Constants
+  const DECADE_FILTER_ID = 'decadeFilter';
+  const STORY_WALL_ID = 'storyWall';
+  const DECADE_ALL = 'all';
+
   // cache stories for client-side decade filtering
   let allStories = [];
 
@@ -18,7 +23,7 @@
 
     await fetchAndRender(lat, lng);
 
-    const decadeSelect = document.getElementById('decadeFilter');
+    const decadeSelect = document.getElementById(DECADE_FILTER_ID);
     if(decadeSelect){
       decadeSelect.addEventListener('change', () => applyStoryFilter());
     }
@@ -40,17 +45,17 @@
   }
 
   function applyStoryFilter(){
-    const select = document.getElementById('decadeFilter');
-    const decade = select ? select.value : 'all';
+    const select = document.getElementById(DECADE_FILTER_ID);
+    const decade = select ? select.value : DECADE_ALL;
     let filtered = allStories;
-    if(decade && decade !== 'all'){
+    if(decade && decade !== DECADE_ALL){
       filtered = allStories.filter(s => s.decade_tag === decade);
     }
     renderStories(filtered);
   }
 
   function renderStories(stories){
-    const wall = document.getElementById('storyWall');
+    const wall = document.getElementById(STORY_WALL_ID);
     wall.innerHTML = '';
 
     if(!stories || stories.length === 0){
@@ -87,7 +92,7 @@
   }
 
   function renderMessage(msg){
-    const wall = document.getElementById('storyWall');
+    const wall = document.getElementById(STORY_WALL_ID);
     wall.innerHTML = '';
     const p = document.createElement('p');
     p.textContent = msg;

@@ -26,6 +26,8 @@
 
     <!-- Page-specific Leaflet code (kept separate from your main.js) -->
     <script defer src="{{ url_for('static', filename='lft.js') }}"></script>
+
+    <script defer src="{{ url_for('static', filename='main.js') }}"></script>
 </head>
 <body>
     <header>
@@ -35,7 +37,6 @@
         </nav>
     </header>
 
-    <!-- Filters and story wall moved to separate location page; index focuses on map selection only. -->
 
     <main>
         <div id="map"></div>
@@ -43,6 +44,5 @@
             <button id="viewLocationStoriesBtn" type="button">View Stories for Selected Pin</button>
         </div>
     </main>
-    <script src="static/main.js"></script>
 </body>
 </html>

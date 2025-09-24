@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', async function () {
   const NOMINATIM_URL =
     'https://nominatim.openstreetmap.org/search?format=geojson&polygon_geojson=1&limit=1&q=' +
     encodeURIComponent('London Borough of Barking and Dagenham');
-  const restrictedBounds = L.latLngBounds([51.5527, 0.1219], [51.5573, 0.1231]);
+  // Larger fallback bbox roughly covering Barking & Dagenham, used only if boundary fetch fails
+  const FALLBACK_BOUNDS = L.latLngBounds([51.50, 0.05], [51.60, 0.25]);
   try {
     const res = await fetch(NOMINATIM_URL);
     const data = await res.json();
@@ -28,16 +29,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     const outline = L.geoJSON(geometry, {
       style: { color: '#2E7D32', weight: 2, fillOpacity: 0 }
     }).addTo(map);
-    // Lock viewport to a small rectangle inside the borough
-    map.setMaxBounds(restrictedBounds.pad(0.01));
-    map.options.maxBoundsViscosity = 1.0;
-    map.fitBounds(restrictedBounds, { padding: [10, 10] });
+    // Clamp to the borough polygon bounds (soft clamp so panning feels natural)
+    const polygonBounds = outline.getBounds();
+    map.setMaxBounds(polygonBounds.pad(0.02));
+    map.options.maxBoundsViscosity = 0.35; // lower viscosity allows slight drag near edges
+    map.fitBounds(polygonBounds, { padding: [10, 10] });
 
   } catch (e) {
     console.warn('Boundary fetch failed; using fallback rectangle:', e);
-    map.setMaxBounds(restrictedBounds.pad(0.01));
-    map.options.maxBoundsViscosity = 1.0;
-    map.fitBounds(restrictedBounds, { padding: [10, 10] });
+    map.setMaxBounds(FALLBACK_BOUNDS.pad(0.02));
+    map.options.maxBoundsViscosity = 0.35;
+    map.fitBounds(FALLBACK_BOUNDS, { padding: [10, 10] });
   }
 
   // Load stories and add one pin per coordinate

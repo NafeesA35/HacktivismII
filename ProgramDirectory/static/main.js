@@ -2,7 +2,18 @@
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    const S_FORM = document.getElementById('storyForm');
+    // Constants for element IDs and sentinel values
+    const STORY_FORM_ID = 'storyForm';
+    const AUTHOR_ID = 'authorName';
+    const TITLE_ID = 'storyTitle';
+    const CONTENT_ID = 'storyContent';
+    const LOCATION_ID = 'locationTag';
+    const DECADE_NUM_ID = 'decadeNum';
+    const STORY_WALL_ID = 'storyWall';
+    const DECADE_FILTER_ID = 'decadeFilter';
+    const DECADE_ALL = 'all';
+
+    const S_FORM = document.getElementById(STORY_FORM_ID);
 
     // Submit workflow (submit page only)
     if(S_FORM){
@@ -11,10 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
 
             // Inputs
-            let authorName = document.getElementById('authorName');
-            let storyTitle = document.getElementById('storyTitle');
-            let storyContent = document.getElementById('storyContent');
-            let locationTag = document.getElementById('locationTag');
+            let authorName = document.getElementById(AUTHOR_ID);
+            let storyTitle = document.getElementById(TITLE_ID);
+            let storyContent = document.getElementById(CONTENT_ID);
+            let locationTag = document.getElementById(LOCATION_ID);
 
             // Clear validation background on change
             [authorName, storyTitle, storyContent, locationTag].forEach(field => {
@@ -68,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     location_tag: locationTag.value,
                     latitude: parseFloat(COORDINATES.latitude),
                     longitude: parseFloat(COORDINATES.longitude),
-                    decade_tag: document.getElementById('decadeNum').value
+                    decade_tag: document.getElementById(DECADE_NUM_ID).value
                 };
 
                 console.log('Sending data:', FORM_CONTENT);
@@ -161,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Render a list of stories
     function renderStories(stories){
-        let storyWall = document.getElementById('storyWall');
+    let storyWall = document.getElementById(STORY_WALL_ID);
         storyWall.innerHTML = '';
 
         if(stories.length === 0){
@@ -180,10 +191,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Client-side decade filter
     function applyStoryFilter(stories){
-        let decadeFilter = document.getElementById('decadeFilter').value;
+        let decadeFilter = document.getElementById(DECADE_FILTER_ID).value;
         let filtered = stories;
 
-        if(decadeFilter!= "all"){
+        if(decadeFilter!= DECADE_ALL){
             filtered = stories.filter(st => st.decade_tag === decadeFilter);
         }
       
@@ -193,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load all stories only when a story wall is present
     async function loadStories(){
-        if(!document.getElementById('storyWall')) return;
+        if(!document.getElementById(STORY_WALL_ID)) return;
         try{
             let res = await fetch('/api/stories');
             if(!res.ok){
@@ -202,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let stories = await res.json();
             renderStories(stories);
 
-            let filterSelect = document.getElementById('decadeFilter');
+            let filterSelect = document.getElementById(DECADE_FILTER_ID);
             if(filterSelect){
                 filterSelect.addEventListener('change', ()=> applyStoryFilter(stories));
             }

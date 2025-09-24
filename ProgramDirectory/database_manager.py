@@ -1,12 +1,14 @@
 import sqlite3
 import sys
 
+DB_PATH = 'storybank.db'
+
 def create_database():
     # Connect to the database (this will create the file if it doesn't exist)
-    conn = sqlite3.connect('storybank.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    create_table_sql = """
+    CREATE_TABLE_SQL = """
     CREATE TABLE IF NOT EXISTS stories (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         author_name TEXT NOT NULL,
@@ -20,14 +22,14 @@ def create_database():
     );
     """
 
-    cursor.execute(create_table_sql)
+    cursor.execute(CREATE_TABLE_SQL)
     conn.commit()
     conn.close()
     print("Database and 'stories' table created successfully.")
 
 def clear_database():
     try:
-        conn = sqlite3.connect('storybank.db')
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         
         # Delete all records from the stories table
