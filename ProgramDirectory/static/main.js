@@ -1,27 +1,29 @@
+// Submission flow + reusable story wall helpers
+
 document.addEventListener('DOMContentLoaded', function() {
 
     const S_FORM = document.getElementById('storyForm');
 
-    // If there is content on the form
+    // Submit workflow (submit page only)
     if(S_FORM){
 
         S_FORM.addEventListener('submit', async function(e){
-            e.preventDefault(); // Prevent default submission
+            e.preventDefault();
 
-            // Get form fields
+            // Inputs
             let authorName = document.getElementById('authorName');
             let storyTitle = document.getElementById('storyTitle');
             let storyContent = document.getElementById('storyContent');
             let locationTag = document.getElementById('locationTag');
 
-            // Add input event listeners to clear red background when user starts typing
+            // Clear validation background on change
             [authorName, storyTitle, storyContent, locationTag].forEach(field => {
                 field.addEventListener('input', function() {
                     this.style.backgroundColor = "white";
                 });
             });
 
-            // Validation check
+            // Basic validation
             if(authorName.value.trim() == "" || storyTitle.value.trim() == "" || storyContent.value.trim() == "" || locationTag.value.trim() == "") {
 
                 if(authorName.value.trim() == "" && storyTitle.value.trim() == "" && storyContent.value.trim() == "" && locationTag.value.trim() == "") {
@@ -43,14 +45,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Reset backgrounds to white
+            // Reset backgrounds
             authorName.style.backgroundColor = "white";
             storyTitle.style.backgroundColor = "white";
             storyContent.style.backgroundColor = "white";
             locationTag.style.backgroundColor = "white";
             
             try {
-                // Get coordinates from the location
+                // Geocode location → lat/lng
                 const COORDINATES = await getCoordinates(locationTag.value);
                 
                 if (!COORDINATES) {
@@ -58,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
+                // Build API payload (snake_case matches DB columns)
                 const FORM_CONTENT = {
                     author_name: authorName.value,
                     story_title: storyTitle.value,
@@ -68,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     decade_tag: document.getElementById('decadeNum').value
                 };
 
-                console.log('Sending data:', FORM_CONTENT); // Debug log
+                console.log('Sending data:', FORM_CONTENT);
 
                 const RESPONSE = await fetch('/api/stories', {
                     method: 'POST',
@@ -79,11 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 const RESULT = await RESPONSE.json();
-                console.log('Server response:', RESULT); // Debug log
+                console.log('Server response:', RESULT);
 
                 if(RESPONSE.ok){
                     alert("Submission Successful!");
-                    // Redirect to home page
                     window.location.href = '/';
                 } else {
                     alert("Submission error: " + (RESULT.error || 'Unknown error'));
@@ -96,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Geocoding via Nominatim
     async function getCoordinates(name){
         const PLACE_NAME = name;
 
@@ -111,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const J_RESPONSE = await RESPONSE.json();
 
             if (!J_RESPONSE || J_RESPONSE.length === 0){
-                return null; // Location not found
+                return null;
             } else {
                 return {
                     latitude: J_RESPONSE[0].lat,
@@ -126,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     }
 
-    //Create A Card For The Story
+    // Story card DOM factory
     function createCard(story){
         let card = document.createElement('div');
         card.className = 'storyCard';
@@ -156,12 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
        
     }
 
-    //Render All Stories Onto The Page
+    // Render a list of stories
     function renderStories(stories){
         let storyWall = document.getElementById('storyWall');
-        storyWall.innerHTML = ''; // clear old stories
+        storyWall.innerHTML = '';
 
-        //Check if there is any stories
         if(stories.length === 0){
             let checkMessage = document.createElement('p');
             checkMessage.textContent = "No Stories Available For This Selection!";
@@ -176,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
 
-    //Apply Filter For The Stories
+    // Client-side decade filter
     function applyStoryFilter(stories){
         let decadeFilter = document.getElementById('decadeFilter').value;
         let filtered = stories;
@@ -189,9 +191,9 @@ document.addEventListener('DOMContentLoaded', function() {
         renderStories(filtered);
     }
 
-
-    //Load Stories From API
+    // Load all stories only when a story wall is present
     async function loadStories(){
+        if(!document.getElementById('storyWall')) return;
         try{
             let res = await fetch('/api/stories');
             if(!res.ok){
