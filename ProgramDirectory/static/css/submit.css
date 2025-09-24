@@ -1,0 +1,98 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to top right,skyblue, rgb(114, 212, 114));
+    background-attachment: fixed;
+    
+}
+
+
+header {
+    text-align: center;
+    padding: 20px;
+    
+}
+
+header h1 {
+    font-size: 24px;
+    color: #210aeb;
+}
+
+nav a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#storyForm {
+    background-color: rgb(104, 201, 201);
+    padding: 24px;
+    border-radius: 16px;
+    max-width: 800px;
+    width: 100%;
+}
+
+
+form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+form input[type="text"],
+form textarea,
+form select {
+    width: 97%;
+    padding: 12px;
+    margin-bottom: 24px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+
+form input[type="text"]:focus,
+form textarea:focus,
+form select:focus {
+    border-color: #0066cc;
+    outline:none;
+}
+
+
+form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+
+#submitButton {
+    background: #0066cc;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+}
+
+#submitButton:hover {
+    background: #0055aa;
+}
+
+
+

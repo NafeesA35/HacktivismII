@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/submit.css">
     <title>Submit a Story - B&D StoryBank</title>
     <script defer src="{{ url_for('static', filename='main.js') }}"></script>
 </head>
@@ -30,6 +31,7 @@
             
             <label for="decadeNum">Story Decade: </label>
             <select id="decadeNum" name="decadeNum">
+                <option value="">Select a decade</option>
                 <option value="1920s">1920s</option>
                 <option value="1930s">1930s</option>
                 <option value="1940s">1940s</option>
