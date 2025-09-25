@@ -5,9 +5,73 @@ html{
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
     background: linear-gradient(to top right,skyblue, rgb(114, 212, 114));
     background-attachment: fixed;
     font-family: 'Alan Sans', sans-serif;
     font-weight: 500;
     
+}
+
+.glowing-border{
+    --gradient-glow: #8A00C4, #ff073a, #8A00C4;
+
+    margin-block: 1rem;
+    padding: 1rem;
+    max-width: 70%;
+
+    border: 0.28rem solid transparent;
+    border-radius: 100vw 100vw 100vw 100vw;
+    background: linear-gradient(to top right,#7ad1a3,#78d295) padding-box, 
+        conic-gradient( var(--gradient-glow)) border-box;
+
+    position: relative;
+    isolation: isolate;
+
+    animation: glow 10s infinite;
+}
+
+@keyframes shiftGlow {
+    0% { background-position: 0% 0%; }
+    33% { background-position: 100% 0%; }
+    66% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+.glowing-border::before,
+.glowing-border::after{
+    content: "";
+    position: absolute;
+    border-radius: inherit;
+}
+
+.glowing-border::before{
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: linear-gradient(to top right, #7ad1a3, #78d295);
+    inset: 0vh;
+    scale: 1 1;
+    filter: blur(0.6rem);
+}
+
+.glowing-border::after{
+    z-index: -2;
+    inset: -0.4rem;
+    background: repeating-conic-gradient(
+        #8A00C4 0deg 60deg,
+        #ff073a 60deg 120deg,
+        #8A00C4 120deg 180deg
+    );
+    background-size: 200% 200%;
+    filter: blur(1rem);
+    opacity: 0.7;
+    animation: shiftGlow 5s linear infinite;
+}
+
+#createstory{
+
 }
