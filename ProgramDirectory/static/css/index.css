@@ -80,19 +80,20 @@ body {
     cursor: pointer;
     font-family: 'Alan Sans', sans-serif;
     font-weight: 600;
+    font-size: 150%;
     text-align: center;
     padding: 1rem 2rem;
 
     background-image: linear-gradient(
         to right,
-        #080808 20%,
-        #ffff00 40%,
-        #ffff00 60%,
-        #000000 80%
+        #ff073a 20%,
+        #8A00C4 40%,
+        #8A00C4 60%,
+        #ff073a 80%
     );
     background-size: 200% auto;
 
-    color: #000;
+    color: #ff073a;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
