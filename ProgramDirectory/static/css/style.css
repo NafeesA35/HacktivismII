@@ -7,6 +7,7 @@
   box-sizing: border-box;
   margin-top: 12px;
   margin: 12px auto 0;
+  margin-bottom: 1rem;
 }
 
 @media (min-width: 900px) {
