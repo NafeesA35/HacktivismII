@@ -130,6 +130,10 @@ main{
     color: #375963;
 }
 
+.infoContent strong{
+  color: #2b425c;
+}
+
 /* Story body */
 .storyCard > p:last-child {
   font-size: 1rem;
