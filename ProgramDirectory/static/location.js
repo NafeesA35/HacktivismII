@@ -75,6 +75,9 @@
     const title = document.createElement('h3');
     title.textContent = story.story_title;
 
+    const info = document.createElement('div');
+    info.className= 'infoContent';
+
     const author = document.createElement('p');
     author.innerHTML = `<strong>By: </strong> ${story.author_name}`;
 
@@ -87,7 +90,8 @@
     const text = document.createElement('p');
     text.textContent = story.story_text;
 
-    card.append(title, author, locationTag, decade, text);
+    info.append(author, locationTag, decade)
+    card.append(title, info, text);
     return card;
   }
 
@@ -95,6 +99,7 @@
     const wall = document.getElementById(STORY_WALL_ID);
     wall.innerHTML = '';
     const p = document.createElement('p');
+    p.className = 'emptyMessage';
     p.textContent = msg;
     wall.appendChild(p);
   }
